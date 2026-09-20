@@ -1,10 +1,10 @@
 # Loop Decision
 
-> **公开评审候选 · 尚未正式发布**。 评审范围、证据和限制见 [REVIEW.md](REVIEW.md)。版本号为开发目标；正式版本标签尚未创建。
+> **v0.3.1** · [评测记录](evals/releases/2026-09-20-v0.3.1.md) · [审查范围与限制](REVIEW.md)
 
 ![Loop skill cover](assets/cover.jpg)
 
-![version](https://img.shields.io/badge/candidate-0.3.1-blue)
+![version](https://img.shields.io/badge/version-0.3.1-blue)
 ![license](https://img.shields.io/badge/license-MIT-green)
 ![type](https://img.shields.io/badge/skill-instruction--only-orange)
 
@@ -53,12 +53,12 @@
 没有脚本、没有 runner——每一条行为都是你能读的纯文本：
 
 - **可审计**——读完指令就知道它会怎么处理你的决策材料，没有黑盒
-- **可移植**——同一个 skill 跑在 Claude Code、Codex 或任何兼容 agent 上
+- **可移植**——使用同一组运行文件；各宿主的兼容性以实测为准
 - **供应链安全**——运行时零依赖，不自动执行任何东西；安装与 CI 校验继承 npm / Git / GitHub 的信任链，CI 已按 commit SHA 与固定版本 pin
 
-## 项目级安装（待发布后实测）
+## 项目级安装
 
-以下命令固定拟发布版本 `v0.3.1`，只写当前项目；目标目录须不存在。远端 tag 尚未发布，本轮未执行，发布负责人会在发布后用干净目录实测。
+以下命令固定版本 `v0.3.1`，只写当前项目；目标目录须不存在。发布验证使用 Codex CLI 0.155.1、配置模型 `gpt-6-astra`／`xhigh`。实际结果与未测范围见评测记录。
 
 **Codex**：
 
@@ -67,14 +67,14 @@ mkdir -p .agents/skills
 git clone --branch v0.3.1 --depth 1 https://github.com/steven-pku/loop-decision.git .agents/skills/loop-decision
 ```
 
-**Claude Code**：
+**Claude Code 目录示例（本版未执行该宿主行为验证）**：
 
 ```bash
 mkdir -p .claude/skills
 git clone --branch v0.3.1 --depth 1 https://github.com/steven-pku/loop-decision.git .claude/skills/loop-decision
 ```
 
-运行时入口是 `SKILL.md`，按需读取 `references/` 和 `examples/`。安装后开启新会话；下方首次成功检查同样尚待发布后实测。
+运行时入口是 `SKILL.md`，按需读取 `references/` 和 `examples/`。安装后在该项目开启新会话。不要覆盖已有安装；先保留自己的修改。
 
 ## 30 秒首次成功
 
@@ -84,7 +84,7 @@ git clone --branch v0.3.1 --depth 1 https://github.com/steven-pku/loop-decision.
 用 loop-decision 快判：周末先试 A 还是 B 两款可退订的软件？两款都能随时取消。
 ```
 
-待核判据：输出先判为 **Type 2（可逆）**，只给分诊理由、1-3 个关键因素、建议与退出条件；不启动 /100 rubric、premortem 或红队全环。若 host 没有加载到本 skill，请先核对安装目录名是否为 `loop-decision`。
+检查输出先判为 **Type 2（可逆）**，只给分诊理由、1-3 个关键因素、建议与退出条件；不启动 /100 rubric、premortem 或红队全环。若 host 没有加载到本 skill，请先核对安装目录名是否为 `loop-decision`。
 
 ## 用法示例
 
@@ -110,9 +110,11 @@ git clone --branch v0.3.1 --depth 1 https://github.com/steven-pku/loop-decision.
 
 它也不保证「最佳决定」或结果正确；输出需要由实际决策人复核。敏感材料应先去除姓名、联系方式、薪资、合同与账号信息，并注意 host / 模型服务商可能保留会话内容。
 
-## 修复验证状态
+## 修复与验证
 
-本候选已修正规则、评分锚点与示例的一致性；新行为回归尚未运行，不能把静态修复当作 READY。待测输入与独立判卷要求见 [evals/README.md](evals/README.md)，历史覆盖口径见 [REVIEW.md](REVIEW.md)。
+已执行 20 例首轮验证及 10 例定向复测；首轮的 5 处初评误扣分和 1 次服务容量失败均保留原始记录。新候选区分「红队待评」与「已观察到的低质量红队」，不把缺记录直接判作稻草人，也不让真实问题借待评免扣分。
+
+[评测记录](evals/releases/2026-09-20-v0.3.1.md) 分列各轮候选、实际输出、连续会话与安装路由检查。示例分数是说明用的诊断，不能当成用户已接受决策或事实已核验。其他宿主未实跑；复盘加载提示等残余限制照实披露。
 
 ## License
 

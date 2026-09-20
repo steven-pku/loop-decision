@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Distinguish unassessed initial red-team work from observed poor red-team work; omit a total instead of assigning a strawman score to missing records. Align the worked example.
+## [0.3.1] - 2026-09-20
 
-### 2026-09-20 — v0.3.1 repair candidate
+### Fixed
+
+- Distinguish unassessed initial red-team work from observed poor red-team work; omit a total instead of assigning a strawman score to missing records. Align the worked example.
 
 - Preserve F2 claim category independently of verification state; qualifying a
   checkable claim as a guess cannot bypass the load-bearing evidence gate.
@@ -23,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Align the Brief Gate field, disclose unavailable source-checking tools, and
   preserve cumulative loop counts through explicitly bounded user extensions.
 - Add separated repair inputs and grader expectations, plus a sanitized
-  historical coverage index. No new behavior runs or release approval are claimed.
+  historical coverage index, and a dated current evaluation record that preserves first-round failures and targeted retests.
 - Preserve historical changelog entries and explain omitted historical artifacts
   without treating them as current runtime dependencies.
 

@@ -1,10 +1,10 @@
 # Loop Decision
 
-> **PUBLIC REVIEW CANDIDATE — UNRELEASED.** See [REVIEW.md](REVIEW.md) for scope, evidence, and limitations. The version is a development target; no stable tag exists yet.
+> **v0.3.1** · [Evaluation record](evals/releases/2026-09-20-v0.3.1.md) · [Review scope and limits](REVIEW.md)
 
 ![Loop skill cover](assets/cover.jpg)
 
-![version](https://img.shields.io/badge/candidate-0.3.1-blue)
+![version](https://img.shields.io/badge/version-0.3.1-blue)
 ![license](https://img.shields.io/badge/license-MIT-green)
 ![type](https://img.shields.io/badge/skill-instruction--only-orange)
 
@@ -36,9 +36,9 @@ No scripts, no runner, zero runtime dependencies. Every behavior is plain markdo
 
 Every framework used is cited with its evidence tier in `references/anchors-and-sources.md` — including a correction of the widely circulated "premortem improves accuracy by 30%" misquote (the 1989 study measured the *number* of reasons generated, not accuracy) and a popular Kahneman quote that has no traceable primary source and is therefore not used.
 
-## Project-local installation (not yet tested)
+## Project-local installation
 
-These commands pin the intended `v0.3.1` release and affect only the current project. The tag is not published yet, so the release owner will test both commands from clean directories after publication.
+These commands pin `v0.3.1` and affect only the current project. Use an absent destination and preserve any existing local changes. Verification used Codex CLI 0.155.1, configured model `gpt-6-astra`, reasoning `xhigh`; see the dated record for actual evidence and limits.
 
 **Codex**:
 
@@ -47,7 +47,7 @@ mkdir -p .agents/skills
 git clone --branch v0.3.1 --depth 1 https://github.com/steven-pku/loop-decision.git .agents/skills/loop-decision
 ```
 
-**Claude Code**:
+**Claude Code directory example (behavior not tested on this host)**:
 
 ```bash
 mkdir -p .claude/skills
@@ -56,7 +56,7 @@ git clone --branch v0.3.1 --depth 1 https://github.com/steven-pku/loop-decision.
 
 ## First-success check
 
-Expected but not yet verified: in a fresh session, ask the installed skill to fast-triage a choice between two cancellable software trials. It should classify the choice as Type 2 and return only the decisive factors, a suggested call, and an exit condition — no /100 rubric, premortem, or red-team loop. A 快判 request involving a Type 1 decision must instead return the gate verdict and request materials for the Full Loop.
+In a fresh session, ask the installed skill to fast-triage a choice between two cancellable software trials. It should classify the choice as Type 2 and return only the decisive factors, a suggested call, and an exit condition — no /100 rubric, premortem, or red-team loop. A 快判 request involving a Type 1 decision must instead return the gate verdict and request materials for the Full Loop.
 
 ## Boundaries
 
@@ -64,9 +64,16 @@ This skill supports decision process; it does not provide legal, tax, medical, m
 
 Starting, stopping, tapering, switching, skipping, or changing the dose of prescription or psychiatric medication is a hard stop before the Gate. The skill must not run option comparison, scoring, premortem, red team, or a risk table for that request, even under a “safety analysis” disclaimer; it may only provide brief prescriber/pharmacist or urgent-support guidance.
 
-## Repair verification status
+## Repair verification
 
-This candidate repairs the instructions, scoring anchors, and example consistency. New behavior regression tests have not run; static repairs are not READY. See [evals/README.md](evals/README.md) for separated test inputs and grader-only expectations, and [REVIEW.md](REVIEW.md) for historical coverage limits.
+The dated record separates a 20-case first round from a 10-case targeted retest.
+Five initial red-team scoring errors and one service-capacity failure remain in
+the evidence. The corrected candidate distinguishes pending assessment from
+observed poor work without excusing strawmen or sham no-findings claims.
+
+See the [evaluation record](evals/releases/2026-09-20-v0.3.1.md) for exact runtime
+identities, actual synthetic outputs, continuation and installation checks, and
+remaining limitations. Historical scores are not current-candidate proof.
 
 ## License
 
