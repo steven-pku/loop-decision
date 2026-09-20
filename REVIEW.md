@@ -65,7 +65,7 @@ commit. Do not treat the moving default branch as a frozen review target.
 
 ## Runtime identity
 
-SKILL.md SHA-256: `f9ebfe31f9f31f3800399d1812bf344fde829ea0a8b213040fa6a82f98ab0d12`.
+SKILL.md SHA-256: `a6b3eaf5cde7a569819cf3b7325a276390bb55a253dbb7e2e4a8ede8abd4769f`.
 
 This repair changes runtime instructions and references, so earlier behavior
 results do not automatically transfer. The Git commit used in a subsequent

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Distinguish unassessed initial red-team work from observed poor red-team work; omit a total instead of assigning a strawman score to missing records. Align the worked example.
+
 ### 2026-09-20 — v0.3.1 repair candidate
 
 - Preserve F2 claim category independently of verification state; qualifying a
