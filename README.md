@@ -4,7 +4,7 @@
 
 ![Loop skill cover](assets/cover.jpg)
 
-![version](https://img.shields.io/badge/candidate-0.2.1-blue)
+![version](https://img.shields.io/badge/candidate-0.3.1-blue)
 ![license](https://img.shields.io/badge/license-MIT-green)
 ![type](https://img.shields.io/badge/skill-instruction--only-orange)
 
@@ -35,14 +35,14 @@
 - 述职 / 晋升 / 汇报**材料写作** → [loop-report-writer](https://github.com/steven-pku/loop-report-writer)
 - 可逆的日常小决策——Gate 会直接放行，这是设计（防过度流程化），不是偷懒
 - 心理危机、医疗紧急决策——超出范围，请寻求专业帮助
-- 处方药或精神科用药的开始、停用、减量、渐停、换药——不进 Gate、评分、premortem 或方案比较，只提供简短的医生／药师求助支持
+- 处方药或精神科用药的开始、停用、减量、渐停、换药、漏服处理——不进 Gate、评分、premortem 或方案比较，只提供简短的医生／药师求助支持
 
 ## 核心特性
 
 - **可逆性 Gate**：先分诊 Type 1（单向门）/ Type 2（双向门），只有难逆决策进全环——框架出自 Bezos 2015 年致股东信，双向校准（重流程压垮小决策、轻流程放跑大决策都点破）
 - **短快判**：Type 2 只输出判定、1-3 个因素、建议与退出条件；不扩写 Decision Brief、三选项表或自造加权评分卡
 - **真选项纪律**：Full Loop 要求 >= 3 个真选项含「不做」，每个选项过「理性人理由」测试；Type 2 快判不强制补第三选项或打分
-- **证据分级 F0-F3**：观点 / 给定事实 / 可核事实 / 高风险断言分层，载重传闻 = fatal
+- **证据分级 F0-F3**：观点 / 给定事实 / 可核事实 / 高风险断言分层；载重 F2 未核且无有效承诺前核实计划时为 fatal，改称「我猜」不能绕过
 - **premortem + 红队**：Klein 原始协议（HBR 2007）+ steelman-then-attack；产出应改变 brief，若没有变化则必须给出可核的 null-result 理由
 - **决策备忘录**：冻结决策时刻的已知/未知/概率/幸存反对意见；模型草案默认 `Proposed`，只有用户明确确认后才进入 `Decided`
 - **复盘分离**：Type 2 不因缺 Full Loop 构件扣分；结果已知时第一句先披露污染，把当时证据与事后信息分栏，事后原因不得倒灌过程评分，完成过程段后才讨论结果
@@ -58,20 +58,20 @@
 
 ## 项目级安装（待发布后实测）
 
-以下命令固定拟发布版本 `v0.2.1`，只写当前项目；目标目录须不存在。远端 tag 尚未发布，本轮未执行，发布负责人会在发布后用干净目录实测。
+以下命令固定拟发布版本 `v0.3.1`，只写当前项目；目标目录须不存在。远端 tag 尚未发布，本轮未执行，发布负责人会在发布后用干净目录实测。
 
 **Codex**：
 
 ```bash
 mkdir -p .agents/skills
-git clone --branch v0.2.1 --depth 1 https://github.com/steven-pku/loop-decision.git .agents/skills/loop-decision
+git clone --branch v0.3.1 --depth 1 https://github.com/steven-pku/loop-decision.git .agents/skills/loop-decision
 ```
 
 **Claude Code**：
 
 ```bash
 mkdir -p .claude/skills
-git clone --branch v0.2.1 --depth 1 https://github.com/steven-pku/loop-decision.git .claude/skills/loop-decision
+git clone --branch v0.3.1 --depth 1 https://github.com/steven-pku/loop-decision.git .claude/skills/loop-decision
 ```
 
 运行时入口是 `SKILL.md`，按需读取 `references/` 和 `examples/`。安装后开启新会话；下方首次成功检查同样尚待发布后实测。
@@ -109,6 +109,10 @@ git clone --branch v0.2.1 --depth 1 https://github.com/steven-pku/loop-decision.
 本 skill 提供决策**过程**支持，不构成法律、税务、医疗或持牌财务建议——这些领域的载重事实需要执业者确认（F3 纪律）。
 
 它也不保证「最佳决定」或结果正确；输出需要由实际决策人复核。敏感材料应先去除姓名、联系方式、薪资、合同与账号信息，并注意 host / 模型服务商可能保留会话内容。
+
+## 修复验证状态
+
+本候选已修正规则、评分锚点与示例的一致性；新行为回归尚未运行，不能把静态修复当作 READY。待测输入与独立判卷要求见 [evals/README.md](evals/README.md)，历史覆盖口径见 [REVIEW.md](REVIEW.md)。
 
 ## License
 

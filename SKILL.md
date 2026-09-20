@@ -3,7 +3,7 @@ name: loop-decision
 description: "把重要决策变成可复盘闭环：先做可逆性分流，可逆小事简短放行；难逆取舍再做真选项、证据分级、premortem、红队、止损位与决策备忘录。复盘先看过程；结果已知则标注污染。适用于 offer、跳槽、大额购买、技术选型、合作与投资；不用于谈判话术、汇报写作、医疗／精神科用药决定、心理危机或紧急情况。"
 license: MIT
 metadata:
-  version: "0.2.1"
+  version: "0.3.1"
 ---
 
 # Loop Decision
@@ -27,7 +27,7 @@ This is an instruction-only skill by design. It ships no scripts or runner; all 
 - A decision's quality is judged by its **process at decision time**, not by its outcome. Good decisions can produce bad outcomes and vice versa (luck exists). This skill scores process; the retrospective mode keeps process and outcome scores separate.
 - **Reversibility first**: most decisions are two-way doors and deserve speed, not process. Only one-way-door decisions (irreversible or costly to reverse) enter the full loop. The gate protects the user from over-processing as much as from under-processing (`references/anchors-and-sources.md`, Bezos 2015 letter, both directions of the footnote).
 - **Real alternatives or no deal (Full Loop only)**: a decision with one real option is not a decision. In the Full Loop, require >= 3 genuine alternatives including "do nothing / not now". A slate of strawman alternatives padded around a foregone conclusion is a fatal issue. Type 2 fast triage does not require a third option or rubric score.
-- **Evidence grading**: every load-bearing claim in the brief carries an F-tag (F0 opinion / F1 party-provided fact / F2 checkable fact — verify or mark 〔待核〕 / F3 high-stakes claim — needs a real source or gets cut; `references/evidence-grading.md`). Key evidence resting on hearsay is fatal.
+- **Evidence grading**: every load-bearing claim in the brief carries an F-tag (F0 opinion / F1 party-provided fact / F2 checkable fact — verify or mark 〔待核〕 / F3 high-stakes claim — needs a real source or gets cut; `references/evidence-grading.md`). A genuinely unverified load-bearing F2 without an effective pre-commitment verification plan is fatal; qualifying it as a guess never changes its factual category or removes this gate. Track claim category separately from verification status.
 - **Provenance stays exact**: do not invent who selected a sample, supplied a source, or verified a claim. Missing source ownership is unknown, not adverse evidence. A record that cannot be independently inspected this session is a review limitation, not by itself proof of never-verified evidence or a fatal defect; apply this distinction to scoring as well as wording. Red-team possibilities remain conditional hypotheses, never rewritten as facts the user supplied. Distinguish “the user says they verified it” from “verified in this session” and from “never verified”; missing attachments alone do not prove a false claim.
 - **Conclusion-first detection**: if the brief reads like evidence assembled to justify a decision already made (one rich option, thin alternatives, no disconfirming evidence anywhere), say so plainly once. If the user confirms they just want documentation, mark the memo "post-hoc rationale, not a live decision" and continue honestly.
 - **Decision ownership**: a recommendation is not the user's decision. Draft memo status is `Proposed / 待决定` unless the user explicitly confirms the choice; preference, prior spending, a request for advice, or model confidence is not confirmation. Never set `Decided`, sign, accept, or finalize on the user's behalf.
@@ -38,7 +38,7 @@ This is an instruction-only skill by design. It ships no scripts or runner; all 
 - **Hard-stop boundary**: prescription or psychiatric medication decisions, self-harm, harm to others, abuse/coercion, and medical or psychiatric emergencies are handled before the Gate under the Hard Stops section below. A disclaimer never restores the decision workflow.
 - This skill offers decision-process support, not professional advice. Legal, tax, and licensed-financial facts need a qualified professional (mark them F3). Medical questions may only be redirected into a brief clinician-contact or appointment-preparation request; medication choice remains outside this workflow.
 - Ask clarification only when missing information blocks the task; ask no more than 3 questions at a time.
-- Stop after 2 full QA revision loops unless the user requests more (the gate-only fast path does not count).
+- Default budget: 2 full QA revision loops; then stop and hand control back. Only a new, explicit user request naming a finite additional number of loops extends the budget. Keep the cumulative count; do not reset it on repeated diagnosis, rewording, or continuation requests. Gate-only fast triage does not count.
 
 Default assumptions:
 
@@ -74,16 +74,18 @@ Build the brief with `references/decision-brief-template.md`. Core fields (field
 ```markdown
 ## Decision Brief
 - 决策问题（一句话，含时限）：
+- Gate 判定：Type 1（难逆）+ 一句话理由
 - 情境与约束：
 - 真选项（>= 3，含「不做/不是现在」）：各选项的预期结果 + 主观概率 + 依据
 - 证据清单（每条带 F0-F3 标签）：
 - 利益相关方（受影响方 / 决策权归属：谁建议、谁拍板、谁执行）：
-- 止损位（什么信号出现就退出/回滚，谁负责监测）：
+- 止损位（可观察触发信号／监测负责人／可行响应动作）：
 - 时机（为什么是现在；再等的成本 vs 新信息的价值）：
 - 决策时刻状态（时间压力 / 情绪状态，如实记录）：
 ```
 
-- Every quantified claim gets an F-tag at write time, not retroactively.
+- Every quantified claim gets an F-tag at write time, not retroactively. A checkable assertion remains F2 even if prefixed with “I guess” or “possibly”; a genuine preference is F0. Record verification separately.
+- If source-checking tools are unavailable or a source cannot be accessed, disclose that limitation explicitly, say which claims remain unverified, and never describe a planned check as completed. Follow `references/evidence-grading.md` for the pre-commitment plan and fallback.
 - Options must be live: for each alternative, one sentence on why a reasonable person would choose it. If that sentence cannot be written honestly, it is a strawman — replace it or drop the count.
 
 ### 3. QA Loop — score the brief
@@ -95,12 +97,12 @@ Grade with `references/decision-rubric.md`. Six dimensions:
 - For every deduction, cite the exact line of the brief.
 - Fatal issues (any one -> Revise regardless of score):
   - only one real option (strawman slate)
-  - key evidence is hearsay (F3 with no source, or load-bearing F2 genuinely unverified with no precondition-style verification plan — "verify X before commitment or auto-fall to option Y" counts as a plan)
-  - no stop-loss condition
+  - F3 with no source, or a genuinely unverified load-bearing F2 without an effective pre-commitment verification plan as defined in `references/evidence-grading.md`; a vague promise to check later is insufficient
+  - no effective stop-loss condition: no observable trigger, no monitor owner, or no feasible response; decorative wording does not count
   - Type 1 decision reaching the memo stage with no premortem run (does not apply to the pre-premortem initial scorecard)
   - conclusion-first brief the user won't acknowledge (mark and continue, see Operating Principles)
 - Decision directions: Pass (~85+, no fatal) / Borderline (one or two weak dimensions -> targeted revision) / Revise (fatal or clearly weak).
-- **Hard stop after 2 full QA revision loops.** One full loop = initial score -> passes -> revise -> re-score; label both scorecards with the same loop number (`QA loop 1/2 · 初评` / `QA loop 1/2 · 复评`). At `2/2`, enter a Graceful Halt: output the best version, list unresolved gaps (usually missing evidence or an unbuildable option), and hand control back.
+- **Hard stop at the authorized loop budget, initially 2.** One full loop = initial score -> premortem + red team -> revise -> re-score; both scorecards share a number (`QA loop 1/2 · 初评` / `QA loop 1/2 · 复评`). At `2/2`, output the best version and unresolved gaps, then hand control back. Repeated scoring of an unchanged brief neither increments nor resets the count. A later explicit request for one additional loop extends the total to 3, labeled `QA loop 3/3 · 用户追加 1 轮`; preserve the earlier 1/2 and 2/2 record. Vague “continue” is not a new budget: ask how many additional loops, without starting one. Each extension ends in the same halt; no automatic renewals.
 
 ### 4. Premortem Pass
 
@@ -117,7 +119,7 @@ Run against the leading option (`references/red-team-pass.md`):
 
 - **Steelman first**: state the strongest case FOR the option in its best form. Then attack that, not a caricature. A red team that beats up a strawman scores zero on 对立面强度.
 - Attack lines: the evidence (what F2s were never checked? what would falsify the key claim?), the frame (is this even the right question?), the incentives (who benefits from this choice and did they shape the inputs?), the timing (what does waiting actually cost?).
-- Output: the 2-3 strongest surviving objections, each with "what would have to be true for this objection to sink the decision".
+- Output the strongest surviving objections, normally up to 3, with their defeat conditions. There is no minimum count. If none survives, record the four attack lines, evidence checked, and why each objection was resolved; retain any uncertainty. Do not invent objections to satisfy a quota or call an untested objection resolved.
 
 ### 6. Revise and re-score
 
@@ -139,8 +141,8 @@ This checklist applies only after a Type 1 Full Loop. It is not required for a T
 - [ ] >= 3 live options, "do nothing" considered
 - [ ] Every load-bearing claim F-tagged; no unresolved fatal
 - [ ] Premortem changed something concrete (or its null result is explained)
-- [ ] Red team objections survive in the memo, not sanded away
-- [ ] Stop-loss triggers are observable events with an owner
+- [ ] Surviving red-team objections remain in the memo; if none survives, the attack coverage and evidence-based null result are recorded
+- [ ] Stop-loss triggers are observable events with a monitor owner and a feasible response
 - [ ] Review date set; memo saved where the user will actually see it again
 
 ## Retrospective Mode

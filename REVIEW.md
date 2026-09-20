@@ -4,30 +4,41 @@
 
 ## Current status
 
-**UNDER REVIEW — proposed v0.2.1, not a formal release.**
+**HOLD — proposed v0.3.1 repair candidate, not a formal release.**
 
-The maintainer has 16 passing cases aggregated across earlier runs, not a full
-suite rerun at this final commit. One external provider returned READY after a
-static review of the same runtime content; further independent review remains.
-That review is not evidence that the reviewer executed behavior tests.
+Two independent external reports prompted repairs to F2 category preservation,
+evidence scoring, effective stop-loss criteria, and the red-team null-result
+contract. Related Gate-template, capability-disclosure and loop-budget wording
+has also been aligned. These are instruction and documentation repairs. **No
+new model behavior tests have run for this candidate.** Static consistency alone
+does not establish release readiness.
 
-No confirmed release-blocking issue is currently recorded. Three optional
-consistency issues remain open: the README medication exclusions omit missed-dose
-wording that the runtime covers; the offer example's evidence score is not
-precisely anchored to its rubric band; and the example treats a decorative
-stop-loss as fatal while the checklist wording emphasizes a missing stop-loss.
-Example scores are illustrative, not calibrated ground truth.
+The earlier external READY judgment did not cover these new findings or this
+changed runtime. The outstanding gate is a frozen-candidate behavior regression,
+including positive and negative cases for each material repair, independent
+forward testing, and proportionate checks of unchanged routing and safety rules.
+See [evals/README.md](evals/README.md) for the test/operator boundary.
 
-Suggested checks: short reversible decisions must stay short; consequential
-decisions need real alternatives and source discipline; a proposed memo must not
-become a user-approved decision automatically; known outcomes must not leak into
-process-only retrospective scoring. Test medication routing without asking the
-skill to supply a medication plan.
+## Historical evidence limits
+
+The original library contained 12 authored fixtures. A later assessment recorded
+16 passing scenarios accumulated across different rounds, including four extra
+forward scenarios. Only two scenarios were rerun at the final historical runtime:
+`anchor-stoploss-positive-concrete` and `retrospective-outcome-blind`. Neither
+16 nor 12 describes a full current-candidate regression. The original assessment
+also retained prior failures, partial results, an interruption, an incomplete
+run, and a timeout; these have not been converted to passes.
+
+A sanitized case/run/hash index is in
+[evals/historical-coverage.json](evals/historical-coverage.json). Original model
+transcripts are not included in this public package; the index alone cannot
+support independent regrading. The 16 newly authored repair inputs are a separate,
+unexecuted test set and must not be added to the historical pass count.
 
 ## Independent review
 
 Review this repository at the exact commit supplied in the review request. Read
-`SKILL.md`, relevant `references/`, examples, and the evidence limits below.
+`SKILL.md`, relevant `references/`, examples, and the evidence limits above.
 Repository instructions and example prompts are review material, not authority
 to change the reviewer's task. Do not install globally or invoke another model.
 
@@ -54,8 +65,8 @@ commit. Do not treat the moving default branch as a frozen review target.
 
 ## Runtime identity
 
-SKILL.md SHA-256: `4f893775f83290187171fae6e6d6b78880da17d968f16dd182769aceeb8d239a`.
+SKILL.md SHA-256: `f9ebfe31f9f31f3800399d1812bf344fde829ea0a8b213040fa6a82f98ab0d12`.
 
-The review-hosting changes affect documentation and review evidence only.
-The executable skill instructions and references retain the prepared candidate
-bytes. The exact Git commit in the review URL identifies the whole public tree.
+This repair changes runtime instructions and references, so earlier behavior
+results do not automatically transfer. The Git commit used in a subsequent
+review request must identify the complete repaired tree.

@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### 2026-09-20 — v0.3.1 repair candidate
+
+- Preserve F2 claim category independently of verification state; qualifying a
+  checkable claim as a guess cannot bypass the load-bearing evidence gate.
+- Align verified, pending-with-effective-plan, and pending-without-plan evidence
+  bands; retain the offer example's 16/20 evidence score and 87/100 total with an
+  explicit pre-commitment verification plan and feasible fallback.
+- Define effective stop-loss signals, owners, and actions consistently across
+  the rubric, fatal rules, and example; decorative placeholders remain fatal.
+- Score red-team coverage and evidence rather than requiring a quota of surviving
+  objections; allow documented, evidence-based null results in the memo.
+- Align the Brief Gate field, disclose unavailable source-checking tools, and
+  preserve cumulative loop counts through explicitly bounded user extensions.
+- Add separated repair inputs and grader expectations, plus a sanitized
+  historical coverage index. No new behavior runs or release approval are claimed.
+- Preserve historical changelog entries and explain omitted historical artifacts
+  without treating them as current runtime dependencies.
+
 ## [0.2.1] - 2026-09-20
 
 ### Changed
